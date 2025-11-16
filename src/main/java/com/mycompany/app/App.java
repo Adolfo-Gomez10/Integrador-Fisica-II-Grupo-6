@@ -21,11 +21,9 @@ public class App {
             System.err.println("No se pudo iniciar el servidor HTTP: " + e.getMessage());
         }
       
-        /*
+        // Lanzar la interfaz gráfica en el hilo de Swing (Interfaz en español)
         SwingUtilities.invokeLater(() -> {
-            MainGui.createAndShow();
+            InterfazGrafica.createAndShow();
         });
     }
-         */
-}   
 }   

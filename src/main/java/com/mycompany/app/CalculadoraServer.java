@@ -38,19 +38,19 @@ public class CalculadoraServer {
             String html = "<html><body>"
                 + "<h3>Resistencia 4 bandas</h3>"
                 + "<form method='POST'>"
-                + "Banda1: <input name='b1' value='brown'/><br/>"
-                + "Banda2: <input name='b2' value='black'/><br/>"
-                + "Multiplicador: <input name='m' value='red'/><br/>"
-                + "Tolerancia: <input name='t' value='gold'/><br/>"
+                + "Banda1: <input name='b1' value='marron'/><br/>"
+                + "Banda2: <input name='b2' value='negro'/><br/>"
+                + "Multiplicador: <input name='m' value='rojo'/><br/>"
+                + "Tolerancia: <input name='t' value='oro'/><br/>"
                 + "<input type='submit' value='Calcular'/>"
                 + "</form></body></html>";
             send(ex, html);
         } else {
             Map<String,String> params = parse(ex.getRequestURI(), new String(ex.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
-            String res = CalculadoraResistencias.calculate4Band(params.getOrDefault("b1","brown"),
-                    params.getOrDefault("b2","black"),
-                    params.getOrDefault("m","red"),
-                    params.getOrDefault("t","gold"));
+                String res = CalculadoraResistencias.calculate4Band(params.getOrDefault("b1","marron"),
+                    params.getOrDefault("b2","negro"),
+                    params.getOrDefault("m","rojo"),
+                    params.getOrDefault("t","oro"));
             send(ex, "<html><body>Resultado: " + res + "<br/><a href=\"/\">Volver</a></body></html>");
         }
     }
@@ -62,7 +62,7 @@ public class CalculadoraServer {
                 + "<form method='POST'>"
                 + "Actual (μF): <input name='cur' value='1.0'/><br/>"
                 + "Objetivo (μF): <input name='tgt' value='2.0'/><br/>"
-                + "Modo: <select name='mode'><option>PARALLEL</option><option>SERIES</option></select><br/>"
+                + "Modo: <select name='mode'><option>PARALELO</option><option>SERIE</option></select><br/>"
                 + "<input type='submit' value='Calcular'/>"
                 + "</form></body></html>";
             send(ex, html);
@@ -70,8 +70,8 @@ public class CalculadoraServer {
             Map<String,String> params = parse(ex.getRequestURI(), new String(ex.getRequestBody().readAllBytes(), StandardCharsets.UTF_8));
             double cur = Double.parseDouble(params.getOrDefault("cur","0"));
             double tgt = Double.parseDouble(params.getOrDefault("tgt","0"));
-            String mode = params.getOrDefault("mode","PARALLEL");
-            double req = "PARALLEL".equalsIgnoreCase(mode) ? CalculadoraCapacitores.requiredParallel(cur, tgt) : CalculadoraCapacitores.requiredSeries(cur, tgt);
+            String mode = params.getOrDefault("mode","PARALELO");
+            double req = "PARALELO".equalsIgnoreCase(mode) ? CalculadoraCapacitores.requiredParallel(cur, tgt) : CalculadoraCapacitores.requiredSeries(cur, tgt);
             send(ex, "<html><body>Resultado: " + CalculadoraCapacitores.fmt(req) + "<br/><a href=\"/\">Volver</a></body></html>");
         }
     }

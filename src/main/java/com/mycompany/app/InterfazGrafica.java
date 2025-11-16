@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class MainGui {
+public class InterfazGrafica {
     private static final String[] COLORS = {
-        "black","brown","red","orange","yellow","green","blue","violet","grey","white","gold","silver","none"
+        "negro","marron","rojo","naranja","amarillo","verde","azul","violeta","gris","blanco","oro","plata","ninguno"
     };
 
     public static void createAndShow() {
@@ -15,13 +15,13 @@ public class MainGui {
         frame.setSize(700, 350);
         JTabbedPane tabs = new JTabbedPane();
 
-        // Resistor Tab
+        // Resistor interfaz
         JPanel rpanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JComboBox<String> b1 = new JComboBox<>(COLORS);
         JComboBox<String> b2 = new JComboBox<>(COLORS);
-        JComboBox<String> mult = new JComboBox<>(new String[]{"black","brown","red","orange","yellow","green","blue","violet","grey","white","gold","silver"});
-        JComboBox<String> tol = new JComboBox<>(new String[]{"brown","red","gold","silver","none"});
+        JComboBox<String> mult = new JComboBox<>(new String[]{"negro","marron","rojo","naranja","amarillo","verde","azul","violeta","gris","blanco","oro","plata"});
+        JComboBox<String> tol = new JComboBox<>(new String[]{"marron","rojo","oro","plata","ninguno"});
         JButton rcalc = new JButton("Calcular Resistencia");
         JLabel rres = new JLabel("Valor: ");
 
@@ -43,13 +43,13 @@ public class MainGui {
             rres.setText("Valor: " + val);
         });
 
-        // Capacitor Tab
+        // Capacitor interfaz
         JPanel cpanel = new JPanel(new GridBagLayout());
         JLabel curL = new JLabel("Valor actual (μF):");
         JTextField curF = new JTextField("1.0", 10);
         JLabel tgtL = new JLabel("Valor objetivo (μF):");
         JTextField tgtF = new JTextField("2.0", 10);
-        JComboBox<String> mode = new JComboBox<>(new String[]{"PARALLEL","SERIES"});
+        JComboBox<String> mode = new JComboBox<>(new String[]{"PARALELO","SERIE"});
         JButton ccalc = new JButton("Calcular capacitor a agregar");
         JLabel cres = new JLabel("Resultado: ");
 
@@ -68,7 +68,7 @@ public class MainGui {
                 double tgt = Double.parseDouble(tgtF.getText());
                 String m = (String)mode.getSelectedItem();
                 double required;
-                if ("PARALLEL".equals(m)) required = CalculadoraCapacitores.requiredParallel(cur, tgt);
+                if ("PARALELO".equalsIgnoreCase(m)) required = CalculadoraCapacitores.requiredParallel(cur, tgt);
                 else required = CalculadoraCapacitores.requiredSeries(cur, tgt);
                 String out = (Double.isNaN(required) ? "No válido (verifique valores y modo)" : "Agregar: " + CalculadoraCapacitores.fmt(required));
                 cres.setText("Resultado: " + out);
